@@ -12,20 +12,26 @@ services:
       - mysql-data:/var/lib/mysql
 
   server:
-    build: ./server
-    command: yarn start:dev
+    image: node:18
+    working_dir: /app
+    command: >
+      sh -c "corepack enable && corepack prepare yarn@4.0.0 --activate && \
+      yarn install && yarn workspace server start:dev"
     volumes:
-      - ./server:/app
+      - .:/app
     depends_on:
       - mysql
     ports:
       - '3000:3000'
 
   client:
-    build: ./client
-    command: yarn dev --host
+    image: node:18
+    working_dir: /app
+    command: >
+      sh -c "corepack enable && corepack prepare yarn@4.0.0 --activate && \
+      yarn install && yarn workspace client dev --host"
     volumes:
-      - ./client:/app
+      - .:/app
     depends_on:
       - server
     ports:

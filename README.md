@@ -17,8 +17,12 @@ Requirements:
 
 ### Run with Docker Compose
 
+The provided `docker-compose.yml` starts development servers for the React
+client and the NestJS backend using official Node images. All dependencies are
+installed inside the containers on startup, so you only need to make sure Docker
+is available on your machine.
+
 ```bash
-yarn install # installs workspace dependencies
 docker-compose up
 ```
 
